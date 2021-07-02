@@ -2,10 +2,17 @@ const sketchContainer = document.querySelector('.container');
 const clearSketch = document.querySelector('#clear');
 const newSketch = document.querySelector('#new');
 const changeColor = document.querySelector('#change_color');
+const tileColor = document.querySelector('body');
 
 const containerSize = parseInt(getComputedStyle(sketchContainer).width);
 
 let tileWidthNumber = 16;
+/*
+There are some comments about 'colore_tile class', it turned out that having pencilColor
+variable is better solution, because it allows to have multiple colors on a sketch and 
+also manage invalid color - if such color occurs it doesn't make any changes
+*/
+let pencilColor = '#000000';
 
 fillContainer(tileWidthNumber)
 
@@ -20,7 +27,9 @@ function fillContainer(tileNum) {
         tile.style.height = `${tileSize}px`;
 
         tile.addEventListener('mouseover', () => {
-            tile.classList.add('colored_tile');
+            // works while managing colored_tile class
+            // tile.classList.add('colored_tile');
+            tile.style.backgroundColor = pencilColor;
         });
 
         sketchContainer.appendChild(tile);
@@ -30,15 +39,26 @@ function fillContainer(tileNum) {
 }
 
 clearSketch.addEventListener('click', () => {
+    /* 
+    works while managing colored_tile class 
+    */
+   /*
     for (let child of sketchContainer.children) 
         child.classList.remove('colored_tile');
+    */
+
+    for (let child of sketchContainer.children)
+        child.style.backgroundColor = 'white';
 })
 
 newSketch.addEventListener('click', () => {
     tileWidthNumber = parseInt(prompt('Enter new sketch width. Max 100.'));
-    // check if tileWidthnumber is number, otherwise set its value to 16
+    // to do: check if tileWidthnumber is number, otherwise set its value to 16
+    
     if (tileWidthNumber > 100) tileWidthNumber = 100;
     if (tileWidthNumber < 1) tileWidthNumber = 16;
+    if (typeof tileWidthNumber != 'number') tileWidthNumber = 16;
+
     console.log(`sketch size set to ${tileWidthNumber}`);
     removeOldChilds();
     fillContainer(tileWidthNumber);
@@ -47,7 +67,13 @@ newSketch.addEventListener('click', () => {
 changeColor.addEventListener('click', () => {
     let newColor = prompt('Enter color you want to paint, use hex notation like "#12a57c" please');
     console.log(newColor)
-    // change style of colored_tile class
+
+    // check wheter color is valid - not supported for the moment
+
+    // works while managing colored_tile class
+    // tileColor.style.setProperty('--tileColor', newColor);
+
+    pencilColor = newColor;
 })
 
 function removeOldChilds(){
