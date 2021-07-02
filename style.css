@@ -3,10 +3,11 @@ html, body {
     min-height: 100vh;
     height: 100%;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-image: linear-gradient(#534dd3, #3397C1);
 }
 
 header {
-    background-color: burlywood;
+    background-image: linear-gradient(-135deg, #F3B02B, #E3A01B);
     text-align: center;
 }
 
@@ -18,14 +19,33 @@ h1 {
 main {
     display: flex;
     flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+button {
+    margin: 15px;
+    height: 3vw;
+    width: 10vw;
+    font-size: 1.2vw;
+    border: none;
+    background-image: linear-gradient(-135deg, #F3B02B, #E3A01B);
+    color: black;
 }
 
 div.container {
-    max-width: 960px;
-    max-height: 720px;
+    width: 720px;
+    height: 720px;
+    border: 2px solid black;
 }
 
+div.tile {
+    float: left;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
 
-div.blackTile {
+div.colored_tile {
     background-color: black;
 }
