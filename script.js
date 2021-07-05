@@ -8,11 +8,12 @@ const containerSize = parseInt(getComputedStyle(sketchContainer).width);
 
 let tileWidthNumber = 16;
 /*
-There are some comments about 'colore_tile class', it turned out that having pencilColor
+There are some comments about 'colore_tile class' in the code, it turned out that having pencilColor
 variable is better solution, because it allows to have multiple colors on a sketch and 
 also manage invalid color - if such color occurs it doesn't make any changes
 */
 let pencilColor = '#000000';
+let draw = true;
 
 fillContainer(tileWidthNumber)
 
@@ -29,7 +30,8 @@ function fillContainer(tileNum) {
         tile.addEventListener('mouseover', () => {
             // works while managing colored_tile class
             // tile.classList.add('colored_tile');
-            tile.style.backgroundColor = pencilColor;
+            if (draw)
+                tile.style.backgroundColor = pencilColor;
         });
 
         sketchContainer.appendChild(tile);
@@ -64,17 +66,23 @@ newSketch.addEventListener('click', () => {
     fillContainer(tileWidthNumber);
 })
 
-changeColor.addEventListener('click', () => {
-    let newColor = prompt('Enter color you want to paint, use hex notation like "#12a57c" please');
-    console.log(newColor)
-
-    // check wheter color is valid - not supported for the moment
-
-    // works while managing colored_tile class
-    // tileColor.style.setProperty('--tileColor', newColor);
-
-    pencilColor = newColor;
+changeColor.addEventListener('input', () => {
+    pencilColor = changeColor.value;
+    console.log(pencilColor);
+    // draw = true;
 })
+
+// changeColor.addEventListener('click', () => {
+//     let newColor = prompt('Enter color you want to paint, use hex notation like "#12a57c" please');
+//     console.log(newColor)
+
+//     // check wheter color is valid - not supported for the moment
+
+//     // works while managing colored_tile class
+//     // tileColor.style.setProperty('--tileColor', newColor);
+
+//     pencilColor = newColor;
+// })
 
 function removeOldChilds(){
     while(sketchContainer.firstChild)
